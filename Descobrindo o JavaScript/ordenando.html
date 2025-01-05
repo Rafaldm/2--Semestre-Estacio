@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Ordenação</title>
+    <link rel="stylesheet" href="style/style.css">
+    <script src="ordenando.js" defer></script>
+</head>
+<body>
+    <h1>Ordenando Valores</h1>
+
+    <!-- Campo de entrada numérico -->
+    <input type="number" id="valor" placeholder="Digite um valor" />
+    <button onclick="addValor()">Adicionar</button>
+
+    <hr />
+
+    <!-- Campo de seleção de algoritmos de ordenação -->
+    <select id="algoritmo">
+        <option value="bubble">Bubble Sort</option>
+        <option value="selection">Selection Sort</option>
+        <option value="quick">Quick Sort</option>
+    </select>
+
+    <div class="button-group">
+        <button onclick="ordenarValores()">Ordenar</button>
+        <button onclick="embaralharValores()">Misturar</button>
+    </div>
+
+    <hr />
+
+    <!-- Lista para exibir os valores -->
+    <ul id="valores"></ul>
+
+    <script>
+        /** Função para adicionar um valor à lista */
+        function addValor() {
+            const campoValor = document.getElementById('valor');
+            const listaValores = document.getElementById('valores');
+
+            const valor = campoValor.value;
+            if (valor === '') {
+                alert('Digite um valor válido!');
+                return;
+            }
+
+            const novoItem = document.createElement('li');
+            novoItem.textContent = valor;
+            listaValores.appendChild(novoItem);
+
+            campoValor.value = ''; // Limpa o campo após adicionar
+        }
+
+        /** Função para ordenar os valores */
+        function ordenarValores() {
+            const listaValores = document.getElementById('valores');
+            const algoritmo = document.getElementById('algoritmo').value;
+            const valores = Array.from(listaValores.children).map(li => parseInt(li.textContent));
+
+            let resultado = [];
+            switch (algoritmo) {
+                case 'bubble':
+                    resultado = bubbleSort(valores);
+                    break;
+                case 'selection':
+                    resultado = selectionSort(valores);
+                    break;
+                case 'quick':
+                    resultado = quickSort(valores);
+                    break;
+            }
+
+            atualizarLista(listaValores, resultado);
+        }
+
+        /** Função para embaralhar os valores */
+        function embaralharValores() {
+            const listaValores = document.getElementById('valores');
+            const valores = Array.from(listaValores.children).map(li => parseInt(li.textContent));
+
+            shuffle(valores);
+            atualizarLista(listaValores, valores);
+        }
+
+        /** Função para atualizar a lista exibida no HTML */
+        function atualizarLista(lista, valores) {
+            lista.innerHTML = valores.map(valor => `<li>${valor}</li>`).join('');
+        }
+
+        /** Algoritmo Bubble Sort */
+        function bubbleSort(array) {
+            const arr = [...array];
+            for (let i = 0; i < arr.length - 1; i++) {
+                for (let j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                    }
+                }
+            }
+            return arr;
+        }
+
+        /** Algoritmo Selection Sort */
+        function selectionSort(array) {
+            const arr = [...array];
+            for (let i = 0; i < arr.length - 1; i++) {
+                let minIndex = i;
+                for (let j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+                [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+            }
+            return arr;
+        }
+
+        /** Algoritmo Quick Sort */
+        function quickSort(array) {
+            if (array.length <= 1) return array;
+            const pivot = array[array.length - 1];
+            const left = array.filter((el, i) => el <= pivot && i !== array.length - 1);
+            const right = array.filter(el => el > pivot);
+            return [...quickSort(left), pivot, ...quickSort(right)];
+        }
+
+        /** Função para embaralhar o array */
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+</html>

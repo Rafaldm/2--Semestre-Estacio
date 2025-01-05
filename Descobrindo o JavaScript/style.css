@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* Estilo do título */
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    font-size: 2.0em;
+    font-weight: bolder;
+}
+
+/* Estilo geral para alinhar conteúdo em coluna */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo dos botões */
+button {
+    background-color: rgb(46, 88, 255);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.445);
+}
+
+/* Efeito hover nos botões */
+button:hover {
+    background-color: darkblue;
+}
+
+/* Estilo do campo de entrada e seleção */
+input, select {
+    margin: 10px 0;
+    padding: 5px;
+    width: 200px;
+}
+
+/* Espaçamento entre o botão Adicionar e outros elementos */
+#valor + button {
+    margin-bottom: 20px;
+}
+
+/* Alinhamento dos botões Ordenar e Misturar */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Linha horizontal e espaçamento */
+hr {
+    width: 100%;
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+/* Estilo da lista de valores */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+li {
+    margin: 5px 0;
+    padding: 0;
+}
